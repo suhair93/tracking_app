@@ -1,0 +1,35 @@
+#Internal package file, do not edit.
+#Sat Nov 03 12:35:09 IST 2018
+7.path=fonts/bold.ttf
+2.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+5.set=DEX
+0.path=beep.mp3
+2.baseType=DIRECTORY
+3.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+7.baseType=DIRECTORY
+2.set=ASSET
+1.path=Montserrat-Regular.ttf
+4.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
+7.set=ASSET
+count=8
+5.baseType=DIRECTORY
+2.path=fonts/Regular.ttf
+5.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
+4.set=DEX
+3.path=fonts/light.ttf
+6.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=classes.dex
+7.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+6.set=DEX
+1.baseType=DIRECTORY
+6.baseType=DIRECTORY
+5.path=classes2.dex
+0.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+0.baseType=DIRECTORY
+3.set=ASSET
+6.path=classes.dex
+1.base=E\:\\android_app\\tracking_app\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
+4.baseType=DIRECTORY
+0.set=ASSET
