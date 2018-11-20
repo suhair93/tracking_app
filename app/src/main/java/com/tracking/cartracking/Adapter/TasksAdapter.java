@@ -98,7 +98,7 @@ public class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final Query query1 = ref.child("task").orderByChild("carNumber").equalTo(car.getText().toString());
+                        final Query query1 = ref.child("task").orderByChild("id").equalTo(news.getId());
                         query1.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

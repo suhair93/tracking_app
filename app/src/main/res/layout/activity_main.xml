@@ -23,6 +23,14 @@
             android:paddingStart="@dimen/_10sdp"
             android:paddingEnd="@dimen/_10sdp"/>
 
+        <ImageButton
+            android:layout_width="40dp"
+            android:id="@+id/logout"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:drawable/ic_lock_power_off" />
+
     </RelativeLayout>
 
 <ScrollView android:layout_height="match_parent"

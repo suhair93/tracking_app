@@ -115,8 +115,13 @@ public class LoginActivity extends AppCompatActivity {
                                                 editor.apply();
                                                 dialog.dismiss();
                                                 // الانتقال لواجهة الرئيسية اللادمن
+
+                                                Toast.makeText(getApplicationContext(), " success login", Toast.LENGTH_LONG).show();
+
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                                                 startActivity(intent);
                                                 finish();
                                             }
@@ -128,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 editor.putString(Keys.KEY_EMPLOYEE, email);
                                                 editor.apply();
                                                 dialog.dismiss();
+                                                Toast.makeText(getApplicationContext(), " success login", Toast.LENGTH_LONG).show();
 
                                                 Intent intent = new Intent(LoginActivity.this, MainActivityEmployee.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

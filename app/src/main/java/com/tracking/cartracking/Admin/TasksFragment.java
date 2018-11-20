@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -98,6 +99,7 @@ public class TasksFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         TaskModel task = new TaskModel();
+                        task.setId(generateUniqueId());
                         task.setTask(task_msg.getText().toString());
                         task.setAdmin(Admin_email);
                         task.setCarNumber(spinner.getSelectedItem().toString());
@@ -252,5 +254,15 @@ public class TasksFragment extends Fragment {
 
                 datePickerDialog.show();
             }});
+    }
+
+
+    public static int generateUniqueId() {
+        UUID idOne = UUID.randomUUID();
+        String str=""+idOne;
+        int uid=str.hashCode();
+        String filterStr=""+uid;
+        str=filterStr.replaceAll("-", "");
+        return Integer.parseInt(str);
     }
 }

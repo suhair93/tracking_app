@@ -116,7 +116,11 @@ public class AddAccountActivity extends AppCompatActivity {
                             // الرسالة التى تظهر للمستخدم
                             Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                             return;
-                        }else
+                        } else if(password.getText().toString().length()<6 &&!isValidPassword(password.getText().toString())){
+                            System.out.println("Not Valid");
+                            Toast.makeText(getApplicationContext(), "Enter strong password minimam 6 char]!", Toast.LENGTH_SHORT).show();
+                        }
+                        else
 
                         if (TextUtils.isEmpty(password.getText().toString())) {
                             Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
@@ -167,7 +171,7 @@ public class AddAccountActivity extends AppCompatActivity {
                                     ref.child("admin").push().setValue(user);
 
                                     // رسالة عند الانتهاء
-                                    Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Thank you , success regester", Toast.LENGTH_LONG).show();
                                     // الانتقال اللي تسجيل الدخول
                                     startActivity(new Intent(AddAccountActivity.this, LoginActivity.class));
                                     finish();
@@ -193,7 +197,17 @@ public class AddAccountActivity extends AppCompatActivity {
         );
     }
 
+    public static boolean isValidPassword(final String password) {
 
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
     public static boolean isEmailValid(String email){
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         Matcher matcher = pattern.matcher(email);

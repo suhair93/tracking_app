@@ -1,6 +1,7 @@
 package com.tracking.cartracking.Employees;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,8 +10,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.tracking.cartracking.Admin.MainActivity;
+import com.tracking.cartracking.LoginActivity;
 import com.tracking.cartracking.R;
 
 import java.util.ArrayList;
@@ -38,6 +43,19 @@ public class MainActivityEmployee extends AppCompatActivity {
                 .build()
         );
         setContentView(R.layout.activity_main);
+
+        ImageButton imageButton = findViewById(R.id.logout);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivityEmployee.this, LoginActivity.class);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
          title=(TextView)findViewById(R.id.title) ;
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);

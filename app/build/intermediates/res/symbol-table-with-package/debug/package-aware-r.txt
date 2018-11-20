@@ -2298,6 +2298,7 @@ id loading_indicator
 id login
 id logo
 id logo_only
+id logout
 id masked
 id match_global_nicknames
 id match_parent

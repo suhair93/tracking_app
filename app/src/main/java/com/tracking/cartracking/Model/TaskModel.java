@@ -4,12 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class TaskModel {
 
-
+public  int id;
     public String carNumber;
     public String task;
     public String start_date;
     public String end_date;
     public String admin;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public TaskModel(){}
 
