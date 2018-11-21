@@ -72,98 +72,100 @@ public class LoginActivity extends AppCompatActivity {
                         if (TextUtils.isEmpty(email)) {
                             Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                             return;
-                        }
+                        }else
 
                         if (TextUtils.isEmpty(password)) {
                             Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                             return;
-                        }
-                        dialog.show();
-                        //authenticate user
-                        // نفس الداله المستخدمه بتسجيل حساب جديد
+                        }else {
+                            dialog.show();
+                            //authenticate user
+                            // نفس الداله المستخدمه بتسجيل حساب جديد
 
-                        Query fireQuery = ref.child("user").orderByChild("email").equalTo(email);
-                        fireQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                // ازا الحساب غير موجوديظهر مسج
-                                if (dataSnapshot.getValue() == null) {
-                                    Toast.makeText(LoginActivity.this, "Not found", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                    // ازا الحساب موجوديقوم بتخزين الحساب المدخل
-                                } else {
-                                    List<user> searchList = new ArrayList<user>();
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        user user = snapshot.getValue(user.class);
-                                        searchList.add(user);
+                            Query fireQuery = ref.child("user").orderByChild("email").equalTo(email);
+                            fireQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // ازا الحساب غير موجوديظهر مسج
+                                    if (dataSnapshot.getValue() == null) {
+                                        Toast.makeText(LoginActivity.this, "Not found", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                        // ازا الحساب موجوديقوم بتخزين الحساب المدخل
+                                    } else {
+                                        List<user> searchList = new ArrayList<user>();
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            user user = snapshot.getValue(user.class);
+                                            searchList.add(user);
+
+                                        }
+                                        // لوب ليقوم بالبحث عن الحساب
+                                        for (int i = 0; i < searchList.size(); i++) {
+                                            // ازا الايميل والباسورد صحيحة
+                                            if (searchList.get(i).getEmail().equals(email) && searchList.get(i).getPassword().equals(password)) {
+
+                                                //الاوبجكت هذا خاص بنقل البيانات من كلاس لكلاس اخر
+                                                SharedPreferences.Editor editor = getSharedPreferences(Keys.KEY_ID, MODE_PRIVATE).edit();
+                                                // شرط ازا كان نوع المستخدم ادمن
+                                                if (searchList.get(i).getTypeUser().equals(Keys.KEY_ADMIN)) {
+                                                    // Keys.KEY_TOKEN خزن الايميل بال
+                                                    //لاعتماده كid لحساب
+                                                    editor.putString(Keys.KEY_ADMIN, email);
+                                                    editor.putString(Keys.KEY_ORGNIZATION_NAME, searchList.get(i).getName_org());
+                                                    editor.putString(Keys.KEY_CITY, searchList.get(i).getCity());
+                                                    editor.apply();
+                                                    dialog.dismiss();
+                                                    // الانتقال لواجهة الرئيسية اللادمن
+
+                                                    Toast.makeText(getApplicationContext(), " success login", Toast.LENGTH_LONG).show();
+
+                                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                                // ازا نوع المتسخدم طالب
+                                                if (searchList.get(i).getTypeUser().equals(Keys.KEY_EMPLOYEE)) {
+
+
+                                                    // خزن الايميل هنا
+                                                    editor.putString(Keys.KEY_EMPLOYEE, email);
+                                                    editor.apply();
+                                                    dialog.dismiss();
+                                                    Toast.makeText(getApplicationContext(), " success login", Toast.LENGTH_LONG).show();
+
+                                                    Intent intent = new Intent(LoginActivity.this, MainActivityEmployee.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                    finish();
+
+                                                }
+
+                                                // غير ذلك ازا كان خطأ بكلمة المرور او اسم المستخدم
+                                            } else {
+                                                dialog.dismiss();
+                                                Toast.makeText(LoginActivity.this, "invalid user name or password", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        }
+
+
+                                        dialog.dismiss();
 
                                     }
-                                    // لوب ليقوم بالبحث عن الحساب
-                                    for(int i=0;i<searchList.size();i++){
-                                        // ازا الايميل والباسورد صحيحة
-                                        if(searchList.get(i).getEmail().equals(email) && searchList.get(i).getPassword().equals(password)) {
-
-                                            //الاوبجكت هذا خاص بنقل البيانات من كلاس لكلاس اخر
-                                            SharedPreferences.Editor editor = getSharedPreferences(Keys.KEY_ID, MODE_PRIVATE).edit();
-                                            // شرط ازا كان نوع المستخدم ادمن
-                                            if (searchList.get(i).getTypeUser().equals(Keys.KEY_ADMIN)) {
-                                                // Keys.KEY_TOKEN خزن الايميل بال
-                                                //لاعتماده كid لحساب
-                                                editor.putString(Keys.KEY_ADMIN, email);
-                                                editor.putString(Keys.KEY_ORGNIZATION_NAME, searchList.get(i).getName_org());
-                                                editor.putString(Keys.KEY_CITY, searchList.get(i).getCity());
-                                                editor.apply();
-                                                dialog.dismiss();
-                                                // الانتقال لواجهة الرئيسية اللادمن
-
-                                                Toast.makeText(getApplicationContext(), " success login", Toast.LENGTH_LONG).show();
-
-                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                                                startActivity(intent);
-                                                finish();
-                                            }
-                                            // ازا نوع المتسخدم طالب
-                                            if (searchList.get(i).getTypeUser().equals(Keys.KEY_EMPLOYEE) ) {
-
-
-                                                // خزن الايميل هنا
-                                                editor.putString(Keys.KEY_EMPLOYEE, email);
-                                                editor.apply();
-                                                dialog.dismiss();
-                                                Toast.makeText(getApplicationContext(), " success login", Toast.LENGTH_LONG).show();
-
-                                                Intent intent = new Intent(LoginActivity.this, MainActivityEmployee.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                startActivity(intent);
-                                                finish();
-
-                                            }
-
-                                            // غير ذلك ازا كان خطأ بكلمة المرور او اسم المستخدم
-                                        }else{
-                                            dialog.dismiss();
-                                            Toast.makeText(LoginActivity.this, "invalid user name or password", Toast.LENGTH_SHORT).show();}
-
-                                    }
-
-
-                                    dialog.dismiss();
-
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                dialog.dismiss();
-                                Toast.makeText(LoginActivity.this, "no connected internet", Toast.LENGTH_SHORT).show();}
-
-
-                        });
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    dialog.dismiss();
+                                    Toast.makeText(LoginActivity.this, "no connected internet", Toast.LENGTH_SHORT).show();
+                                }
 
 
+                            });
+
+                        }
 
 
 

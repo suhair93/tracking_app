@@ -1,6 +1,7 @@
 package com.tracking.cartracking.Admin;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -50,11 +52,29 @@ public class MainActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
+                builder2.setMessage(" are you sure ?");
+                builder2.setCancelable(true)
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alertdialog2 = builder2.create();
+                alertdialog2.show();
+
+
             }
         });
 
